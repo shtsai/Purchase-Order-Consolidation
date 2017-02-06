@@ -18,6 +18,50 @@ newfilename = 'rakuten.xlsx'
 newsheet = nwb.active
 newsheet.title = "rakuten"
 
+# add header to new file
+newsheet.cell(row=3, column=1).value = "轉入頂新"
+newsheet.cell(row=3, column=2).value = "單據日期"
+newsheet.cell(row=3, column=3).value = "會員編號"
+newsheet.cell(row=3, column=4).value = "託運單號"
+newsheet.cell(row=3, column=5).value = "訂單號碼"
+newsheet.cell(row=3, column=6).value = "訂單日期"
+newsheet.cell(row=3, column=7).value = "訂購人"
+newsheet.cell(row=3, column=8).value = "收貨人"
+
+'''
+newsheet.cell(row=3, column=9).value = ""
+newsheet.cell(row=3, column=10).value = ""
+newsheet.cell(row=3, column=11).value = ""
+newsheet.cell(row=3, column=12).value = ""
+newsheet.cell(row=3, column=13).value = ""
+newsheet.cell(row=3, column=14).value = ""
+newsheet.cell(row=3, column=15).value = ""
+newsheet.cell(row=3, column=16).value = ""
+newsheet.cell(row=3, column=17).value = ""
+newsheet.cell(row=3, column=18).value = ""
+newsheet.cell(row=3, column=19).value = ""
+newsheet.cell(row=3, column=20).value = ""
+newsheet.cell(row=3, column=21).value = ""
+newsheet.cell(row=3, column=22).value = ""
+newsheet.cell(row=3, column=23).value = ""
+'''
+
+newsheet.cell(row=3, column=24).value = "贈送"
+newsheet.cell(row=3, column=25).value = "備貨"
+newsheet.cell(row=3, column=26).value = "出貨"
+newsheet.cell(row=3, column=27).value = "備注"
+newsheet.cell(row=3, column=28).value = "聯絡電話"
+newsheet.cell(row=3, column=29).value = "收件人聯絡電話"
+newsheet.cell(row=3, column=30).value = "送貨地址"
+newsheet.cell(row=3, column=31).value = "訂單金額"
+newsheet.cell(row=3, column=32).value = "網路金額抵扣"
+newsheet.cell(row=3, column=33).value = "合計"
+newsheet.cell(row=3, column=34).value = "買家付款方式"
+newsheet.cell(row=3, column=35).value = "網購收款狀態"
+newsheet.cell(row=3, column=36).value = "品號"
+
+
+
 r = 3
 c = 1
 # print all non-empty cells
