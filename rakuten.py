@@ -1,5 +1,17 @@
 import openpyxl
 
+def set_auto_column_widths():
+    column_widths = {}
+    for row in newsheet.iter_rows():
+        for cell in row:
+            if cell.value:
+                # add 5 at the end because Chinese chars take larger spaces
+                column_widths[cell.column] = max((column_widths.get(cell.column, 0), len(cell.value)+5)) 
+    for i, column_width in column_widths.items():
+        newsheet.column_dimensions[i].width = column_width
+    return
+
+
 # path name
 # Windows
 # filename = 'C:/Users/user/Desktop/樂天 版本.xlsx'
@@ -127,15 +139,7 @@ for row in sheet.iter_rows():
 
 
 # set column width
-column_widths = {}
-for row in newsheet.iter_rows():
-    for cell in row:
-        if cell.value:
-	    # add 5 at the end because Chinese chars take larger spaces
-            column_widths[cell.column] = max((column_widths.get(cell.column, 0), len(cell.value)+5)) 
-for i, column_width in column_widths.items():
-    newsheet.column_dimensions[i].width = column_width
-
+set_auto_column_widths()
 
 # save new workbook
 nwb.save(filename = newfilename)
@@ -143,3 +147,5 @@ nwb.save(filename = newfilename)
 
 # prevent output window from closing
 # input()
+
+
