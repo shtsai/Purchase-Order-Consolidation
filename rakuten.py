@@ -27,25 +27,21 @@ newsheet.cell(row=3, column=5).value = "訂單號碼"
 newsheet.cell(row=3, column=6).value = "訂單日期"
 newsheet.cell(row=3, column=7).value = "訂購人"
 newsheet.cell(row=3, column=8).value = "收貨人"
-
-'''
-newsheet.cell(row=3, column=9).value = ""
-newsheet.cell(row=3, column=10).value = ""
-newsheet.cell(row=3, column=11).value = ""
-newsheet.cell(row=3, column=12).value = ""
-newsheet.cell(row=3, column=13).value = ""
-newsheet.cell(row=3, column=14).value = ""
-newsheet.cell(row=3, column=15).value = ""
-newsheet.cell(row=3, column=16).value = ""
-newsheet.cell(row=3, column=17).value = ""
-newsheet.cell(row=3, column=18).value = ""
-newsheet.cell(row=3, column=19).value = ""
-newsheet.cell(row=3, column=20).value = ""
-newsheet.cell(row=3, column=21).value = ""
-newsheet.cell(row=3, column=22).value = ""
-newsheet.cell(row=3, column=23).value = ""
-'''
-
+newsheet.cell(row=3, column=9).value = "卡拉蝦原味"
+newsheet.cell(row=3, column=10).value = "卡拉蝦辣味"
+newsheet.cell(row=3, column=11).value = "卡拉魷原味"
+newsheet.cell(row=3, column=12).value = "卡拉魷辣味"
+newsheet.cell(row=3, column=13).value = "卡拉魷芥末"
+newsheet.cell(row=3, column=14).value = "卡拉蟹原味"
+newsheet.cell(row=3, column=15).value = "卡拉蟹辣味"
+newsheet.cell(row=3, column=16).value = "卡拉龍珠原味"
+newsheet.cell(row=3, column=17).value = "卡拉龍珠辣味"
+newsheet.cell(row=3, column=18).value = "卡拉龍珠芥末"
+newsheet.cell(row=3, column=19).value = "卡拉小卷原味"
+newsheet.cell(row=3, column=20).value = "卡拉小卷芥末"
+newsheet.cell(row=3, column=21).value = "虱目魚薄燒脆片海苔"
+newsheet.cell(row=3, column=22).value = "虱目魚薄燒脆片黑胡椒"
+newsheet.cell(row=3, column=23).value = "虱目魚薄燒脆片蒜香"
 newsheet.cell(row=3, column=24).value = "贈送"
 newsheet.cell(row=3, column=25).value = "備貨"
 newsheet.cell(row=3, column=26).value = "出貨"
@@ -130,7 +126,20 @@ for row in sheet.iter_rows():
     r += 1
 
 
+# set column width
+column_widths = {}
+for row in newsheet.iter_rows():
+    for cell in row:
+        if cell.value:
+	    # add 5 at the end because Chinese chars take larger spaces
+            column_widths[cell.column] = max((column_widths.get(cell.column, 0), len(cell.value)+5)) 
+for i, column_width in column_widths.items():
+    newsheet.column_dimensions[i].width = column_width
+
+
+# save new workbook
 nwb.save(filename = newfilename)
+
 
 # prevent output window from closing
 # input()
