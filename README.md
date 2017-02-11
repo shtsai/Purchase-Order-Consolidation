@@ -5,7 +5,7 @@ This repository contains small programs that parses contents of excel files and 
 ## Subdirectory
 
 There are one subdirectories:   
-* [rakuten](https://github.com/shtsai7/Networking-project/tree/master/rakuten): contains all the code and instructions for converting rakuten worksheets
+* [rakuten](https://github.com/shtsai7/excel_format_converter/tree/master/rakuten): contains all the code and instructions for converting rakuten worksheets
  
 Checkout the README files in each subdirectorie for further details.
 
