@@ -23,6 +23,30 @@ def set_auto_column_widths(sheet):
     sheet.column_dimensions[get_column_letter(10)].width = 20
     return
 
+def set_auto_column_widths_F(sheet):
+    '''
+    This function sets the column widths automatically
+    '''
+    column_widths = {}
+    for row in sheet.iter_rows():
+        for cell in row:
+            if cell.value:
+                # add 4 at the end because Chinese chars take larger spaces
+                column_widths[cell.column] = max((column_widths.get(cell.column, 0), len(cell.value)+4)) 
+    for i, column_width in column_widths.items():
+        sheet.column_dimensions[i].width = column_width
+
+    sheet.column_dimensions[get_column_letter(7)].width = 13
+    sheet.column_dimensions[get_column_letter(8)].width = 13
+    sheet.column_dimensions[get_column_letter(9)].width = 40
+    sheet.column_dimensions[get_column_letter(11)].width = 40
+
+#   set row height
+#    for col in range(5, sheet.max_row-1):
+#        sheet.row_dimensions[col].height = 30
+    return
+
+
 def add_header(newsheet):
     ''' 
     This function adds header to the new sheet
@@ -93,7 +117,7 @@ def add_header_F(newsheet):
     newsheet.cell(row=3, column=8).value = "收貨人"
     newsheet.cell(row=3, column=9).value = "商品名稱"
     newsheet.cell(row=3, column=10).value = ""
-    newsheet.cell(row=3, column=11).value = ""
+    newsheet.cell(row=3, column=11).value = "無法識別品項"
     newsheet.cell(row=3, column=12).value = "贈送"
     newsheet.cell(row=3, column=13).value = ""
     newsheet.cell(row=3, column=14).value = "備貨"
@@ -213,6 +237,13 @@ def fill_row_F(newsheet, row, r, payment_method):
         - 11: 貨到付款
         - 14: 點數
     '''
+    # check if the order ID of the current row matches the order ID of previous row
+    if (row[1].value[15:] == newsheet.cell(row=r-1, column=5).value):
+        quantity = eval(row[9].value) 
+        fill_quantity_F(newsheet, r-1, row[8].value, quantity)
+        return r
+    
+    # Else, create a new row
     # 1. date
     # 2. order date 
     newsheet.cell(row=r, column=2).value = (row[0].value[:11])
@@ -257,6 +288,10 @@ def fill_row_F(newsheet, row, r, payment_method):
     # 25. payment status
     newsheet.cell(row=r, column=25).value = (row[29].value)
     # 26. code
+
+    # move on to next row
+    return r+1  
+
 
 def fill_quantity(newsheet, r, product, note, quantity):
     if (note[:2] != "口味"):
@@ -425,9 +460,37 @@ def fill_quantity_F(newsheet, r, product, quantity):
         newsheet.cell(row=r, column=9).value += "老甕酸白菜鍋" + "*" + str(quantity)
     elif ("昆布味噌高湯包" in product):
         newsheet.cell(row=r, column=9).value += "昆布味噌高湯包" + "*" + str(quantity)
+    elif ("油雞腿" in product):
+        newsheet.cell(row=r, column=9).value += "油雞腿" + "*" + str(quantity)
+    elif ("虱目魚水餃" in product):
+        newsheet.cell(row=r, column=9).value += "虱目魚水餃" + "*" + str(quantity)
+    elif ("人蔘烏骨雞" in product):
+        newsheet.cell(row=r, column=9).value += "人蔘烏骨雞" + "*" + str(quantity)
+    elif ("草蝦-12隻" in product):
+        newsheet.cell(row=r, column=9).value += "草蝦12P" + "*" + str(quantity)
+    elif ("蛋黃麻糬丸" in product):
+        newsheet.cell(row=r, column=9).value += "蛋黃麻糬丸" + "*" + str(quantity)
+    elif ("海鱺 750g" in product):
+        newsheet.cell(row=r, column=9).value += "海鱺 750g" + "*" + str(quantity)
+    elif ("蝦仁卷" in product):
+        newsheet.cell(row=r, column=9).value += "蝦仁卷" + "*" + str(quantity)
+    elif ("秋刀魚一夜干" in product):
+        newsheet.cell(row=r, column=9).value += "秋刀魚一夜干" + "*" + str(quantity)
+    elif ("小章魚 300g" in product):
+        newsheet.cell(row=r, column=9).value += "小章魚 300g" + "*" + str(quantity)
+    elif ("薄鹽鯖魚一夜干" in product):
+        newsheet.cell(row=r, column=9).value += "薄鹽鯖魚一夜干" + "*" + str(quantity)
+    elif ("五彩圓籠米糕" in product):
+        newsheet.cell(row=r, column=9).value += "五彩圓籠米糕" + "*" + str(quantity)
+    elif ("火燒蝦仁" in product):
+        newsheet.cell(row=r, column=9).value += "火燒蝦仁" + "*" + str(quantity)
+    elif ("熟凍海瓜子" in product):
+        newsheet.cell(row=r, column=9).value += "熟凍海瓜子" + "*" + str(quantity)
+    elif ("一口花枝 300g" in product):
+        newsheet.cell(row=r, column=9).value += "一口花枝 300g" + "*" + str(quantity)
     else:
         # couldn't match the product name, mark this row red
-        newsheet.cell(row=r, column=9).value = product
+        newsheet.cell(row=r, column=11).value = product
         fill_color(newsheet, r, 27, "FF0000")
 
 def fill_color(sheet, row, column, color):
@@ -514,17 +577,13 @@ for row in sheet.iter_rows():
     if ("常溫" not in row[48].value):   # 冷凍
         payment_method = sheet.cell(row=row[0].row, column=32).value
         if (payment_method == "信用卡付款"):
-            fill_row_F(sheet1F, row, r1F, 13)
-            r1F += 1
+            r1F = fill_row_F(sheet1F, row, r1F, 13)
         elif (payment_method == "ATM轉帳"):
-            fill_row_F(sheet2F, row, r2F, 12)
-            r2F += 1
+            r2F = fill_row_F(sheet2F, row, r2F, 12)
         elif (payment_method == "黑貓宅急便貨到付款"):
-            fill_row_F(sheet3F, row, r3F, 11)
-            r3F += 1
+            r3F = fill_row_F(sheet3F, row, r3F, 11)
         elif (payment_method == "樂天超級點數"):
-            fill_row_F(sheet4F, row, r4F, 14)
-            r4F += 1
+            r4F = fill_row_F(sheet4F, row, r4F, 14)
         else:
             continue
 
@@ -552,11 +611,11 @@ set_auto_column_widths(sheet2)
 set_auto_column_widths(sheet3)
 set_auto_column_widths(sheet4)
 set_auto_column_widths(sheet5)
-set_auto_column_widths(sheet1F)
-set_auto_column_widths(sheet2F)
-set_auto_column_widths(sheet3F)
-set_auto_column_widths(sheet4F)
-set_auto_column_widths(sheet5F)
+set_auto_column_widths_F(sheet1F)
+set_auto_column_widths_F(sheet2F)
+set_auto_column_widths_F(sheet3F)
+set_auto_column_widths_F(sheet4F)
+set_auto_column_widths_F(sheet5F)
 
 
 # save new workbook
