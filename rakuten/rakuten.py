@@ -61,47 +61,51 @@ def add_header(newsheet):
     newsheet.cell(row=3, column=8).value = "收貨人"
     newsheet.cell(row=3, column=9).value = "品名"
     newsheet.cell(row=3, column=10).value = "口味"
-    newsheet.cell(row=3, column=11).value = "卡拉蝦"
-    newsheet.cell(row=4, column=11).value = "原味"
-    newsheet.cell(row=4, column=12).value = "辣味"
-    newsheet.cell(row=3, column=13).value = "卡拉魷"
-    newsheet.cell(row=4, column=13).value = "原味"
-    newsheet.cell(row=4, column=14).value = "辣味"
+    newsheet.cell(row=3, column=11).value = "組數"
+    newsheet.cell(row=3, column=12).value = "卡拉蝦"
+    newsheet.cell(row=4, column=12).value = "原味"
+    newsheet.cell(row=4, column=13).value = "辣味"
+    newsheet.cell(row=3, column=14).value = "卡拉魷"
+    newsheet.cell(row=4, column=14).value = "原味"
+    newsheet.cell(row=4, column=15).value = "辣味"
     newsheet.cell(row=3, column=16).value = "卡拉蟹蟹"
-    newsheet.cell(row=4, column=15).value = "芥末"
-    newsheet.cell(row=4, column=16).value = "原味"
-    newsheet.cell(row=4, column=17).value = "辣味"
-    newsheet.cell(row=3, column=18).value = "預留"
+    newsheet.cell(row=4, column=16).value = "芥末"
+    newsheet.cell(row=4, column=17).value = "原味"
+    newsheet.cell(row=4, column=18).value = "辣味"
     newsheet.cell(row=3, column=19).value = "預留"
     newsheet.cell(row=3, column=20).value = "預留"
     newsheet.cell(row=3, column=21).value = "預留"
     newsheet.cell(row=3, column=22).value = "預留"
-    newsheet.cell(row=3, column=24).value = "卡拉龍珠"
-    newsheet.cell(row=4, column=23).value = "原味"
-    newsheet.cell(row=4, column=24).value = "辣味"
-    newsheet.cell(row=4, column=25).value = "芥末"
-    newsheet.cell(row=3, column=26).value = "卡拉小卷"
-    newsheet.cell(row=4, column=26).value = "原味"
-    newsheet.cell(row=4, column=27).value = "芥末"
-    newsheet.cell(row=3, column=29).value = "虱目魚薄燒脆片"
-    newsheet.cell(row=4, column=28).value = "海苔"
-    newsheet.cell(row=4, column=29).value = "黑胡椒"
-    newsheet.cell(row=4, column=30).value = "蒜香"
-    newsheet.cell(row=3, column=31).value = "贈送"
-    newsheet.cell(row=3, column=32).value = ""
-    newsheet.cell(row=3, column=33).value = "備貨"
-    newsheet.cell(row=3, column=34).value = "出貨"
-    newsheet.cell(row=3, column=35).value = "備注"
-    newsheet.cell(row=3, column=36).value = "聯絡電話"
-    newsheet.cell(row=3, column=37).value = "收件人聯絡電話"
-    newsheet.cell(row=3, column=38).value = "送貨地址"
-    newsheet.cell(row=3, column=39).value = "訂單金額"
-    newsheet.cell(row=3, column=40).value = "網路金額抵扣"
-    newsheet.cell(row=3, column=41).value = "Coupon"
-    newsheet.cell(row=3, column=42).value = "合計"
-    newsheet.cell(row=3, column=43).value = "買家付款方式"
-    newsheet.cell(row=3, column=44).value = "網購收款狀態"
-    newsheet.cell(row=3, column=45).value = "品號"
+    newsheet.cell(row=3, column=23).value = "預留"
+    newsheet.cell(row=3, column=25).value = "卡拉龍珠"
+    newsheet.cell(row=4, column=24).value = "原味"
+    newsheet.cell(row=4, column=25).value = "辣味"
+    newsheet.cell(row=4, column=26).value = "芥末"
+    newsheet.cell(row=3, column=27).value = "卡拉小卷"
+    newsheet.cell(row=4, column=27).value = "原味"
+    newsheet.cell(row=4, column=28).value = "芥末"
+    newsheet.cell(row=3, column=30).value = "虱目魚薄燒脆片"
+    newsheet.cell(row=4, column=29).value = "海苔"
+    newsheet.cell(row=4, column=30).value = "黑胡椒"
+    newsheet.cell(row=4, column=31).value = "蒜香"
+    newsheet.cell(row=3, column=32).value = "贈送"
+    newsheet.cell(row=3, column=33).value = ""
+    newsheet.cell(row=3, column=34).value = "備貨"
+    newsheet.cell(row=3, column=35).value = "出貨"
+    newsheet.cell(row=3, column=36).value = "備注"
+    newsheet.cell(row=3, column=37).value = "聯絡電話"
+    newsheet.cell(row=3, column=38).value = "收件人聯絡電話"
+    newsheet.cell(row=3, column=39).value = "送貨地址"
+    newsheet.cell(row=3, column=40).value = "訂單金額"
+    newsheet.cell(row=3, column=41).value = "網路金額抵扣"
+    newsheet.cell(row=3, column=42).value = "Shop Coupon"
+    newsheet.cell(row=3, column=43).value = "Rakuten Coupon"
+    newsheet.cell(row=3, column=44).value = "合計"
+    newsheet.cell(row=3, column=45).value = "買家付款方式"
+    newsheet.cell(row=3, column=46).value = "網購收款狀態"
+    newsheet.cell(row=3, column=47).value = "品號"
+    newsheet.cell(row=3, column=48).value = "發票"
+    newsheet.cell(row=3, column=49).value = "備注"
 
 def add_header_F(newsheet):
     ''' 
@@ -163,7 +167,7 @@ def fill_row(newsheet, row, r, payment_method):
     # Quantity
     # 9. Product name
     newsheet.cell(row=r, column=9).value = (row[8].value.replace(" ", ""))
-    # 10. quantity
+    # 10. flavor
     if (row[21].value != None):
         newsheet.cell(row=r, column=10).value = (row[21].value)
     elif (row[60].value != None): 
@@ -173,54 +177,63 @@ def fill_row(newsheet, row, r, payment_method):
     else:
         newsheet.cell(row=r, column=10).value = "無備注"
         fill_color(newsheet, r, 45, 'FF0000')
+    # 11. order quantity
+    newsheet.cell(row=r, column=11).value = (row[9].value)
 
-    # 11. Kala shrimp original
-    # 12. Kala shrimp spicy
-    # 13. Kala you original
-    # 14. Kala you spicy
-    # 15. Kala you wasabi
-    # 16. Kala crab original
-    # 17. Kala crab spicy
-    # 18. reserved
+    # 12. Kala shrimp original
+    # 13. Kala shrimp spicy
+    # 14. Kala you original
+    # 15. Kala you spicy
+    # 16. Kala you wasabi
+    # 17. Kala crab original
+    # 18. Kala crab spicy
     # 19. reserved
     # 20. reserved
     # 21. reserved
     # 22. reserved
-    # 23. Kala long zhu original
-    # 24. Kala long zhu spicy
-    # 25. Kala long zhu wasabi
-    # 26. Kala xiao juan original
-    # 27. Kala xiao juan wasabi
-    # 28. fish chips sea weed
-    # 29. fish chips black pepper
-    # 30. fish chips garlic
+    # 23. reserved
+    # 24. Kala long zhu original
+    # 25. Kala long zhu spicy
+    # 26. Kala long zhu wasabi
+    # 27. Kala xiao juan original
+    # 28. Kala xiao juan wasabi
+    # 29. fish chips sea weed
+    # 30. fish chips black pepper
+    # 31. fish chips garlic
     
-    # 31. gift 1
-    # 32. gift 2
-    # 33. preparation
-    # 34. ship date
-    newsheet.cell(row=r, column=34).value = (row[40].value)
-    # 35. Note
-    # 36. phone number 
-    newsheet.cell(row=r, column=36).value = (row[55].value)
-    # 37. contact phone number 
-    newsheet.cell(row=r, column=37).value = (row[62].value)
-    # 38. shipping address
-    newsheet.cell(row=r, column=38).value = (row[64].value)
-    # 39. order total
-    newsheet.cell(row=r, column=39).value = (row[14].value)
-    # 40. point spent
-    newsheet.cell(row=r, column=40).value = (row[20].value)
-    # 41. coupon
-    newsheet.cell(row=r, column=41).value = (row[15].value)
-    # 42. amount paid 
-    newsheet.cell(row=r, column=42).value = (row[27].value)
-    # 43. payment method
-    newsheet.cell(row=r, column=43).value = str(payment_method) 
-    # 44. payment status
-    newsheet.cell(row=r, column=44).value = (row[29].value)
-    # 45. code
-    
+    # 32. gift 1
+    # 33. gift 2
+    # 34. preparation
+    # 35.  ship date
+    newsheet.cell(row=r, column=35).value = (row[40].value)
+    # 36. Note
+    # 37. phone number 
+    newsheet.cell(row=r, column=37).value = (row[55].value)
+    # 38. contact phone number 
+    newsheet.cell(row=r, column=38).value = (row[62].value)
+    # 39. shipping address
+    newsheet.cell(row=r, column=39).value = (row[64].value)
+    # 40. order total
+    newsheet.cell(row=r, column=40).value = (row[14].value)
+    # 41. point spent
+    newsheet.cell(row=r, column=41).value = (row[20].value)
+    # 42. shop coupon
+    newsheet.cell(row=r, column=42).value = (row[15].value)
+    # 43. rakuten coupon
+    newsheet.cell(row=r, column=43).value = (row[16].value)
+    # 44. amount paid 
+    newsheet.cell(row=r, column=44).value = (row[27].value)
+    # 45. payment method
+    newsheet.cell(row=r, column=45).value = str(payment_method) 
+    # 46. payment status
+    newsheet.cell(row=r, column=46).value = (row[29].value)
+    # 47. code
+    # 48. receipt
+    if (row[59].value):
+        newsheet.cell(row=r, column=48).value = (row[59].value[10:])
+    # 49. note
+    newsheet.cell(row=r, column=49).value = (row[60].value)
+
     # count quantity
     product = newsheet.cell(row=r, column=9).value
     note = newsheet.cell(row=r, column=10).value
@@ -299,79 +312,79 @@ def fill_quantity(newsheet, r, product, note, quantity):
         return
     elif ("咔啦蟹蟹１包" in product):
         if ("辣" in note):
-            newsheet.cell(row=r, column=17).value = str(quantity) 
+            newsheet.cell(row=r, column=18).value = str(quantity) 
         else:
-            newsheet.cell(row=r, column=16).value = str(quantity)
+            newsheet.cell(row=r, column=17).value = str(quantity)
     elif ("咔啦小卷單包" in product):
         if ("經典" in note):
-            newsheet.cell(row=r, column=26).value = str(quantity)
-        else:
             newsheet.cell(row=r, column=27).value = str(quantity)
+        else:
+            newsheet.cell(row=r, column=28).value = str(quantity)
     elif ("咔啦魷魚1包" in product):
         if ("原味" in note):
-            newsheet.cell(row=r, column=13).value = str(quantity)
-        elif ("辣" in note):
             newsheet.cell(row=r, column=14).value = str(quantity)
+        elif ("辣" in note):
+            newsheet.cell(row=r, column=15).value = str(quantity)
         else:
-            newsheet.cell(row=r, column=15).value = str(quantity) 
+            newsheet.cell(row=r, column=16).value = str(quantity) 
     elif ("咔啦魷魚】1組/共3包" in product):
         if ("原味" in note):
-            newsheet.cell(row=r, column=13).value = str(3 * quantity) 
+            newsheet.cell(row=r, column=14).value = str(3 * quantity) 
         elif ("辣" in note):
-            newsheet.cell(row=r, column=14).value = str(3 * quantity)
-        else:
             newsheet.cell(row=r, column=15).value = str(3 * quantity)
+        else:
+            newsheet.cell(row=r, column=16).value = str(3 * quantity)
     elif ("咔啦龍珠單包" in product):
         if ("原味" in note):
-            newsheet.cell(row=r, column=23).value = str(quantity)
-        elif ("辣" in note):
             newsheet.cell(row=r, column=24).value = str(quantity)
-        else:
+        elif ("辣" in note):
             newsheet.cell(row=r, column=25).value = str(quantity)
+        else:
+            newsheet.cell(row=r, column=26).value = str(quantity)
     elif ("咔啦蝦1包" in product):
         if ("原" in note):
-            newsheet.cell(row=r, column=11).value = str(quantity)
-        else:
             newsheet.cell(row=r, column=12).value = str(quantity)
+        else:
+            newsheet.cell(row=r, column=13).value = str(quantity)
     elif ("咔啦蝦】1組/共3包" in product):
         if ("原味" in note):
-            newsheet.cell(row=r, column=11).value =  str(3 * quantity)
+            newsheet.cell(row=r, column=12).value =  str(3 * quantity)
         else:
-            newsheet.cell(row=r, column=12).value = str(3 * quantity)
+            newsheet.cell(row=r, column=13).value = str(3 * quantity)
     elif ("咔啦蝦６包" in product):
         if ("原味" in note):
-            newsheet.cell(row=r, column=11).value = str(eval0(note[note.find("原味")-1]) * quantity)
+            newsheet.cell(row=r, column=12).value = str(eval0(note[note.find("原味")-1]) * quantity)
         if ("辣" in note):
-            newsheet.cell(row=r, column=12).value = str(eval0(note[note.find("辣")-1]) * quantity)
+            newsheet.cell(row=r, column=13).value = str(eval0(note[note.find("辣")-1]) * quantity)
     elif ("咔啦魷魚６包" in product):
         if ("原味" in note):
-            newsheet.cell(row=r, column=13).value = str(eval0(note[note.find("原味")-1]) * quantity)
+            newsheet.cell(row=r, column=14).value = str(eval0(note[note.find("原味")-1]) * quantity)
         if ("辣味" in note):
-            newsheet.cell(row=r, column=14).value = str(eval0(note[note.find("辣味")-1]) * quantity)
+            newsheet.cell(row=r, column=15).value = str(eval0(note[note.find("辣味")-1]) * quantity)
         if ("芥" in note):
-            newsheet.cell(row=r, column=15).value = str(eval0(note[note.find("芥")-1]) * quantity)
+            newsheet.cell(row=r, column=16).value = str(eval0(note[note.find("芥")-1]) * quantity)
     elif ("咔啦蟹蟹６包" in product):
         if ("原味" in note):
-            newsheet.cell(row=r, column=16).value = str(eval0(note[note.find("原味")-1]) * quantity)
+            newsheet.cell(row=r, column=17).value = str(eval0(note[note.find("原味")-1]) * quantity)
         if ("香蒜辣味" in note):
-            newsheet.cell(row=r, column=17).value = str(eval0(note[note.find("香蒜辣味")-1]) * quantity)
+            newsheet.cell(row=r, column=18).value = str(eval0(note[note.find("香蒜辣味")-1]) * quantity)
     elif ("咔啦龍珠6包" in product):
         if ("原味" in note):
-            newsheet.cell(row=r, column=23).value = str(eval0(note[note.find("原味")+2]) * quantity)
+            newsheet.cell(row=r, column=24).value = str(eval0(note[note.find("原味")+2]) * quantity)
         if ("辣味" in note):
-            newsheet.cell(row=r, column=24).value = str(eval0(note[note.find("辣味")+2]) * quantity)
+            newsheet.cell(row=r, column=25).value = str(eval0(note[note.find("辣味")+2]) * quantity)
         if ("芥" in note):
-            newsheet.cell(row=r, column=25).value = str(eval0(note[note.find("芥")+2]) * quantity)
+            newsheet.cell(row=r, column=26).value = str(eval0(note[note.find("芥")+2]) * quantity)
     elif ("虱目魚薄燒脆片70g" in product):
         if ("海苔" in note):
-            newsheet.cell(row=r, column=28).value = str(quantity)
-        elif ("黑胡椒" in note):
             newsheet.cell(row=r, column=29).value = str(quantity)
-        else:
+        elif ("黑胡椒" in note):
             newsheet.cell(row=r, column=30).value = str(quantity)
+        else:
+            newsheet.cell(row=r, column=31).value = str(quantity)
     else:
         # couldn't match the product name, mark this row red
-        fill_color(newsheet, r, 45, "F8C471")
+        fill_color(newsheet, r, 49, "F8C471")
 
 
 def fill_quantity_F(newsheet, r, product, quantity):
