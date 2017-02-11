@@ -229,7 +229,9 @@ def fill_row_F(newsheet, row, r, payment_method):
     # 8. receiptant name
     newsheet.cell(row=r, column=8).value = (row[61].value)
     # 9. Product name
-    newsheet.cell(row=r, column=9).value = (row[8].value.replace(" ", ""))
+    newsheet.cell(row=r, column=9).value = ""
+    quantity = eval(row[9].value)
+    fill_quantity_F(newsheet, r, row[8].value, quantity)
     # 12. gift 1
     # 13. gift 2
     # 14. preparation
@@ -332,10 +334,101 @@ def fill_quantity(newsheet, r, product, note, quantity):
         else:
             newsheet.cell(row=r, column=30).value = str(quantity)
     else:
-        print(product)
+        # couldn't match the product name, mark this row red
         fill_color(newsheet, r, 45, "F8C471")
 
 
+def fill_quantity_F(newsheet, r, product, quantity):
+    if ("格陵蘭鴉片魚頭" in product):
+        newsheet.cell(row=r, column=9).value += "格陵蘭鴉片魚頭" + "*" + str(quantity)
+    elif ("熟凍冰卷 180~220g" in product):
+        newsheet.cell(row=r, column=9).value += "熟凍冰卷 180~220g" + "*" + str(quantity)
+    elif ("鮮蝦水餃" in product):
+        newsheet.cell(row=r, column=9).value += "鮮蝦水餃" + "*" + str(quantity)
+    elif ("脆皮海鮮卷" in product):
+        newsheet.cell(row=r, column=9).value += "脆皮海鮮卷" + "*" + str(quantity)
+    elif ("蒲燒鰻魚串" in product):
+        newsheet.cell(row=r, column=9).value += "蒲燒鰻魚串" + "*" + str(quantity)
+    elif ("松葉蟹味棒" in product):
+        newsheet.cell(row=r, column=9).value += "松葉蟹味棒" + "*" + str(quantity)
+    elif ("珍品佛跳牆" in product):
+        newsheet.cell(row=r, column=9).value += "珍品佛跳牆" + "*" + str(quantity)
+    elif ("薄切鯖魚片 10片/組" in product):
+        newsheet.cell(row=r, column=9).value += "薄切鯖魚片 10片/組" + "*" + str(quantity)
+    elif ("大比目魚薄切3入" in product):
+        newsheet.cell(row=r, column=9).value += "大比目魚薄切3入" + "*" + str(quantity)
+    elif ("虱目魚肚 150g" in product):
+        newsheet.cell(row=r, column=9).value += "虱目魚肚 150g" + "*" + str(quantity)
+    elif ("黃金花枝丸(600g/包)" in product):
+        newsheet.cell(row=r, column=9).value += "黃金花枝丸(600g/包)" + "*" + str(quantity)
+    elif ("鯛魚片 200-250g" in product):
+        newsheet.cell(row=r, column=9).value += "鯛魚片 200-250g" + "*" + str(quantity)
+    elif ("鼎級鮑魚佛跳牆" in product):
+        newsheet.cell(row=r, column=9).value += "鼎級鮑魚佛跳牆" + "*" + str(quantity)
+    elif ("松葉蟹鉗" in product):
+        newsheet.cell(row=r, column=9).value += "松葉蟹鉗" + "*" + str(quantity)
+    elif ("珍品海鮮煲" in product):
+        newsheet.cell(row=r, column=9).value += "珍品海鮮煲" + "*" + str(quantity)
+    elif ("櫻花蝦米糕" in product):
+        newsheet.cell(row=r, column=9).value += "櫻花蝦米糕" + "*" + str(quantity)
+    elif ("大白鯧魚 500-600g" in product):
+        newsheet.cell(row=r, column=9).value += "大白鯧魚 500-600g" + "*" + str(quantity)
+    elif ("橙汁排骨" in product):
+        newsheet.cell(row=r, column=9).value += "橙汁排骨" + "*" + str(quantity)
+    elif ("紅燒花筍燴元蹄" in product):
+        newsheet.cell(row=r, column=9).value += "紅燒花筍燴元蹄" + "*" + str(quantity)
+    elif ("麻油雞" in product):
+        newsheet.cell(row=r, column=9).value += "麻油雞" + "*" + str(quantity)
+    elif ("薑母鴨" in product):
+        newsheet.cell(row=r, column=9).value += "薑母鴨" + "*" + str(quantity)
+    elif ("鱈魚薄切3入" in product):
+        newsheet.cell(row=r, column=9).value += "鱈魚薄切3入" + "*" + str(quantity)
+    elif ("日式豬肉鍋" in product):
+        newsheet.cell(row=r, column=9).value += "日式豬肉鍋" + "*" + str(quantity)
+    elif ("冷燻鮭魚" in product):
+        newsheet.cell(row=r, column=9).value += "冷燻鮭魚" + "*" + str(quantity)
+    elif ("韓式泡菜鍋" in product):
+        newsheet.cell(row=r, column=9).value += "韓式泡菜鍋" + "*" + str(quantity)
+    elif ("虱目魚丸" in product):
+        newsheet.cell(row=r, column=9).value += "虱目魚丸" + "*" + str(quantity)
+    elif ("醬燒肋排" in product):
+        newsheet.cell(row=r, column=9).value += "醬燒肋排" + "*" + str(quantity)
+    elif ("半殼扇貝" in product):
+        newsheet.cell(row=r, column=9).value += "半殼扇貝" + "*" + str(quantity)
+    elif ("手工花枝漿" in product):
+        newsheet.cell(row=r, column=9).value += "手工花枝漿" + "*" + str(quantity)
+    elif ("櫻桃鴨胸" in product):
+        newsheet.cell(row=r, column=9).value += "櫻桃鴨胸" + "*" + str(quantity)
+    elif ("人蔘雞" in product):
+        newsheet.cell(row=r, column=9).value += "人蔘雞" + "*" + str(quantity)
+    elif ("鮮蚵卷" in product):
+        newsheet.cell(row=r, column=9).value += "鮮蚵卷" + "*" + str(quantity)
+    elif ("熟盤鮑 500g（8顆/包）" in product):
+        newsheet.cell(row=r, column=9).value += "熟盤鮑 500g（8顆/包）" + "*" + str(quantity)
+    elif ("燻燒大卷" in product):
+        newsheet.cell(row=r, column=9).value += "燻燒大卷" + "*" + str(quantity)
+    elif ("生吻仔魚 750g" in product):
+        newsheet.cell(row=r, column=9).value += "生吻仔魚 750g" + "*" + str(quantity)
+    elif ("福氣魚卵 (130克)" in product):
+        newsheet.cell(row=r, column=9).value += "福氣魚卵 (130克)" + "*" + str(quantity)
+    elif ("香菇貢丸" in product):
+        newsheet.cell(row=r, column=9).value += "香菇貢丸" + "*" + str(quantity)
+    elif ("紅豆麻糬燒" in product):
+        newsheet.cell(row=r, column=9).value += "紅豆麻糬燒" + "*" + str(quantity)
+    elif ("川味麻辣鍋" in product):
+        newsheet.cell(row=r, column=9).value += "川味麻辣鍋" + "*" + str(quantity)
+    elif ("黑蒜頭燉雞" in product):
+        newsheet.cell(row=r, column=9).value += "黑蒜頭燉雞" + "*" + str(quantity)
+    elif ("涼拌毛豆 150g" in product):
+        newsheet.cell(row=r, column=9).value += "涼拌毛豆 150g" + "*" + str(quantity)
+    elif ("老甕酸白菜鍋" in product):
+        newsheet.cell(row=r, column=9).value += "老甕酸白菜鍋" + "*" + str(quantity)
+    elif ("昆布味噌高湯包" in product):
+        newsheet.cell(row=r, column=9).value += "昆布味噌高湯包" + "*" + str(quantity)
+    else:
+        # couldn't match the product name, mark this row red
+        newsheet.cell(row=r, column=9).value = product
+        fill_color(newsheet, r, 27, "FF0000")
 
 def fill_color(sheet, row, column, color):
     fillcolor = PatternFill(start_color=color, end_color=color, fill_type='solid')
