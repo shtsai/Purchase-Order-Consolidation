@@ -1,5 +1,6 @@
 import openpyxl
 from gui import *
+from number_parser import *
 from openpyxl.utils import *
 from openpyxl.styles import *
 
@@ -78,6 +79,38 @@ def add_header(newsheet):
     newsheet.cell(row=3, column=44).value = "網購收款狀態"
     newsheet.cell(row=3, column=45).value = "品號"
 
+def add_header_F(newsheet):
+    ''' 
+    This function adds header to the new sheet (frozen)
+    '''
+    newsheet.cell(row=3, column=1).value = "轉入頂新"
+    newsheet.cell(row=3, column=2).value = "單據日期"
+    newsheet.cell(row=3, column=3).value = "會員編號"
+    newsheet.cell(row=3, column=4).value = "託運單號"
+    newsheet.cell(row=3, column=5).value = "訂單號碼"
+    newsheet.cell(row=3, column=6).value = "訂單日期"
+    newsheet.cell(row=3, column=7).value = "訂購人"
+    newsheet.cell(row=3, column=8).value = "收貨人"
+    newsheet.cell(row=3, column=9).value = "商品名稱"
+    newsheet.cell(row=3, column=10).value = ""
+    newsheet.cell(row=3, column=11).value = ""
+    newsheet.cell(row=3, column=12).value = "贈送"
+    newsheet.cell(row=3, column=13).value = ""
+    newsheet.cell(row=3, column=14).value = "備貨"
+    newsheet.cell(row=3, column=15).value = "出貨"
+    newsheet.cell(row=3, column=16).value = "備注"
+    newsheet.cell(row=3, column=17).value = "聯絡電話"
+    newsheet.cell(row=3, column=18).value = "收件人聯絡電話"
+    newsheet.cell(row=3, column=19).value = "送貨地址"
+    newsheet.cell(row=3, column=20).value = "訂單金額"
+    newsheet.cell(row=3, column=21).value = "網路金額抵扣"
+    newsheet.cell(row=3, column=22).value = "Coupon"
+    newsheet.cell(row=3, column=23).value = "合計"
+    newsheet.cell(row=3, column=24).value = "買家付款方式"
+    newsheet.cell(row=3, column=25).value = "網購收款狀態"
+    newsheet.cell(row=3, column=26).value = "品號"
+
+
 def fill_row(newsheet, row, r, payment_method):
     '''
     This function fills the row from the old sheet to the new sheet.
@@ -105,16 +138,17 @@ def fill_row(newsheet, row, r, payment_method):
  
     # Quantity
     # 9. Product name
-    newsheet.cell(row=r, column=9).value = (row[8].value.replace(" ", "")[:25])
+    newsheet.cell(row=r, column=9).value = (row[8].value.replace(" ", ""))
     # 10. quantity
     if (row[21].value != None):
         newsheet.cell(row=r, column=10).value = (row[21].value)
     elif (row[60].value != None): 
         newsheet.cell(row=r, column=10).value = (row[60].value.replace("/n", ""))
-        # mark this row to indicate remarks
-        red_fill(newsheet, r)
+        # mark this row red to indicate remarks
+        fill_color(newsheet, r, 45, 'FF0000')
     else:
         newsheet.cell(row=r, column=10).value = "無備注"
+        fill_color(newsheet, r, 45, 'FF0000')
 
     # 11. Kala shrimp original
     # 12. Kala shrimp spicy
@@ -165,18 +199,148 @@ def fill_row(newsheet, row, r, payment_method):
     
     # count quantity
     product = newsheet.cell(row=r, column=9).value
-    remark = newsheet.cell(row=r, column=10).value
-    if ("咔啦蟹蟹1包" in product):
-        if ("辣" in product):
-            newsheet.cell(row=r, column=16).value = "1"
+    note = newsheet.cell(row=r, column=10).value
+    quantity = eval(row[9].value)
+    fill_quantity(newsheet, r, product, note, quantity)
+
+def fill_row_F(newsheet, row, r, payment_method):
+    '''
+    This function fills the row from the old sheet to the new sheet (frozen).
+    r is the corresponding row number in the new sheet.
+    payment_method is an integer representing the method of payment
+        - 13: 信用卡
+        - 12: 轉帳
+        - 11: 貨到付款
+        - 14: 點數
+    '''
+    # 1. date
+    # 2. order date 
+    newsheet.cell(row=r, column=2).value = (row[0].value[:11])
+    # 3. ID number
+    newsheet.cell(row=r, column=3).value = (row[55].value)
+    # 4. tracking ID 
+    
+    # 5. order ID 
+    newsheet.cell(row=r, column=5).value = (row[1].value[15:])
+    # 6. order date 
+    newsheet.cell(row=r, column=6).value = "20" + (row[1].value[8:14])
+    # 7. customer name
+    newsheet.cell(row=r, column=7).value = (row[53].value)
+    # 8. receiptant name
+    newsheet.cell(row=r, column=8).value = (row[61].value)
+    # 9. Product name
+    newsheet.cell(row=r, column=9).value = (row[8].value.replace(" ", ""))
+    # 12. gift 1
+    # 13. gift 2
+    # 14. preparation
+    # 15. ship date
+    newsheet.cell(row=r, column=15).value = (row[40].value)
+    # 16. Note
+    # 17. phone number 
+    newsheet.cell(row=r, column=17).value = (row[55].value)
+    # 18. contact phone number 
+    newsheet.cell(row=r, column=18).value = (row[62].value)
+    # 19. shipping address
+    newsheet.cell(row=r, column=19).value = (row[64].value)
+    # 20. order total
+    newsheet.cell(row=r, column=20).value = (row[14].value)
+    # 21. point spent
+    newsheet.cell(row=r, column=21).value = (row[20].value)
+    # 22. coupon
+    newsheet.cell(row=r, column=22).value = (row[15].value)
+    # 23. amount paid 
+    newsheet.cell(row=r, column=23).value = (row[27].value)
+    # 24. payment method
+    newsheet.cell(row=r, column=24).value = str(payment_method) 
+    # 25. payment status
+    newsheet.cell(row=r, column=25).value = (row[29].value)
+    # 26. code
+
+def fill_quantity(newsheet, r, product, note, quantity):
+    if (note[:2] != "口味"):
+        return
+    elif ("咔啦蟹蟹１包" in product):
+        if ("辣" in note):
+            newsheet.cell(row=r, column=17).value = str(quantity) 
         else:
-            newsheet.cell(row=r, column=17).value = "1"
+            newsheet.cell(row=r, column=16).value = str(quantity)
+    elif ("咔啦小卷單包" in product):
+        if ("經典" in note):
+            newsheet.cell(row=r, column=26).value = str(quantity)
+        else:
+            newsheet.cell(row=r, column=27).value = str(quantity)
+    elif ("咔啦魷魚1包" in product):
+        if ("原味" in note):
+            newsheet.cell(row=r, column=13).value = str(quantity)
+        elif ("辣" in note):
+            newsheet.cell(row=r, column=14).value = str(quantity)
+        else:
+            newsheet.cell(row=r, column=15).value = str(quantity) 
+    elif ("咔啦魷魚】1組/共3包" in product):
+        if ("原味" in note):
+            newsheet.cell(row=r, column=13).value = str(3 * quantity) 
+        elif ("辣" in note):
+            newsheet.cell(row=r, column=14).value = str(3 * quantity)
+        else:
+            newsheet.cell(row=r, column=15).value = str(3 * quantity)
+    elif ("咔啦龍珠單包" in product):
+        if ("原味" in note):
+            newsheet.cell(row=r, column=23).value = str(quantity)
+        elif ("辣" in note):
+            newsheet.cell(row=r, column=24).value = str(quantity)
+        else:
+            newsheet.cell(row=r, column=25).value = str(quantity)
+    elif ("咔啦蝦1包" in product):
+        if ("原" in note):
+            newsheet.cell(row=r, column=11).value = str(quantity)
+        else:
+            newsheet.cell(row=r, column=12).value = str(quantity)
+    elif ("咔啦蝦】1組/共3包" in product):
+        if ("原味" in note):
+            newsheet.cell(row=r, column=11).value =  str(3 * quantity)
+        else:
+            newsheet.cell(row=r, column=12).value = str(3 * quantity)
+    elif ("咔啦蝦６包" in product):
+        if ("原味" in note):
+            newsheet.cell(row=r, column=11).value = str(eval0(note[note.find("原味")-1]) * quantity)
+        if ("辣" in note):
+            newsheet.cell(row=r, column=12).value = str(eval0(note[note.find("辣")-1]) * quantity)
+    elif ("咔啦魷魚６包" in product):
+        if ("原味" in note):
+            newsheet.cell(row=r, column=13).value = str(eval0(note[note.find("原味")-1]) * quantity)
+        if ("辣味" in note):
+            newsheet.cell(row=r, column=14).value = str(eval0(note[note.find("辣味")-1]) * quantity)
+        if ("芥" in note):
+            newsheet.cell(row=r, column=15).value = str(eval0(note[note.find("芥")-1]) * quantity)
+    elif ("咔啦蟹蟹６包" in product):
+        if ("原味" in note):
+            newsheet.cell(row=r, column=16).value = str(eval0(note[note.find("原味")-1]) * quantity)
+        if ("香蒜辣味" in note):
+            newsheet.cell(row=r, column=17).value = str(eval0(note[note.find("香蒜辣味")-1]) * quantity)
+    elif ("咔啦龍珠6包" in product):
+        if ("原味" in note):
+            newsheet.cell(row=r, column=23).value = str(eval0(note[note.find("原味")+2]) * quantity)
+        if ("辣味" in note):
+            newsheet.cell(row=r, column=24).value = str(eval0(note[note.find("辣味")+2]) * quantity)
+        if ("芥" in note):
+            newsheet.cell(row=r, column=25).value = str(eval0(note[note.find("芥")+2]) * quantity)
+    elif ("虱目魚薄燒脆片70g" in product):
+        if ("海苔" in note):
+            newsheet.cell(row=r, column=28).value = str(quantity)
+        elif ("黑胡椒" in note):
+            newsheet.cell(row=r, column=29).value = str(quantity)
+        else:
+            newsheet.cell(row=r, column=30).value = str(quantity)
+    else:
+        print(product)
+        fill_color(newsheet, r, 45, "F8C471")
 
 
-def red_fill(sheet, row):
-    redfill = PatternFill(start_color='FFFF0000', end_color='FFFF0000', fill_type='solid')
-    for i in range(1, 45):
-        sheet.cell(row=row, column=i).fill = redfill
+
+def fill_color(sheet, row, column, color):
+    fillcolor = PatternFill(start_color=color, end_color=color, fill_type='solid')
+    for i in range(1, column):
+        sheet.cell(row=row, column=i).fill = fillcolor
 
 
 # path name
@@ -197,57 +361,96 @@ sheet = wb.get_sheet_by_name('Sheet1')
 # open write files
 nwb1 = openpyxl.Workbook()
 newfilename1 = generate_new_filename(filename, "常溫")
+nwb2 = openpyxl.Workbook()
+newfilename2 = generate_new_filename(filename, "冷凍")
 
 # sheet1 信用卡
 sheet1 = nwb1.active
 sheet1.title = "信用卡"
 add_header(sheet1)
+sheet1F = nwb2.active
+sheet1F.title = "信用卡"
+add_header_F(sheet1F)
 
 # sheet2 轉帳
 sheet2 = nwb1.create_sheet()
 sheet2.title = "轉帳"
 add_header(sheet2)
+sheet2F = nwb2.create_sheet()
+sheet2F.title = "轉帳"
+add_header_F(sheet2F)
 
 # sheet3 貨到付款
 sheet3 = nwb1.create_sheet()
 sheet3.title = "貨到付款"
 add_header(sheet3)
+sheet3F = nwb2.create_sheet()
+sheet3F.title = "貨到付款"
+add_header_F(sheet3F)
 
 # sheet4 點數
 sheet4 = nwb1.create_sheet()
 sheet4.title = "點數"
 add_header(sheet4)
+sheet4F = nwb2.create_sheet()
+sheet4F.title = "點數"
+add_header_F(sheet4F)
 
 # sheet5 取消訂單
 sheet5 = nwb1.create_sheet()
 sheet5.title = "取消訂單"
 add_header(sheet5)
+sheet5F = nwb2.create_sheet()
+sheet5F.title = "取消訂單"
+add_header_F(sheet5F)
 
 r1 = 5
 r2 = 5
 r3 = 5
 r4 = 5
-# print all non-empty cells
+r1F = 5
+r2F = 5
+r3F = 5
+r4F = 5
+
+# process original sheet row by row
 for row in sheet.iter_rows():
     if row[0].row == 1:  # skip the first line
         continue
 
-    if ("常溫" not in row[48].value):   # only handle 常溫 for now
-        continue
-    payment_method = sheet.cell(row=row[0].row, column=32).value 
-    if (payment_method == "信用卡付款"):
-        fill_row(sheet1, row, r1, 13)
-        r1 += 1
-    elif (payment_method == "ATM轉帳"):
-        fill_row(sheet2, row, r2, 12)
-        r2 += 1
-    elif (payment_method == "黑貓宅急便貨到付款"):
-        fill_row(sheet3, row, r3, 11)
-        r3 += 1
-    elif (payment_method == "樂天超級點數"):
-        fill_row(sheet4, row, r4, 14)
-    else:
-        continue
+    if ("常溫" not in row[48].value):   # 冷凍
+        payment_method = sheet.cell(row=row[0].row, column=32).value
+        if (payment_method == "信用卡付款"):
+            fill_row_F(sheet1F, row, r1F, 13)
+            r1F += 1
+        elif (payment_method == "ATM轉帳"):
+            fill_row_F(sheet2F, row, r2F, 12)
+            r2F += 1
+        elif (payment_method == "黑貓宅急便貨到付款"):
+            fill_row_F(sheet3F, row, r3F, 11)
+            r3F += 1
+        elif (payment_method == "樂天超級點數"):
+            fill_row_F(sheet4F, row, r4F, 14)
+            r4F += 1
+        else:
+            continue
+
+    else:                               # 常溫
+        payment_method = sheet.cell(row=row[0].row, column=32).value 
+        if (payment_method == "信用卡付款"):
+            fill_row(sheet1, row, r1, 13)
+            r1 += 1
+        elif (payment_method == "ATM轉帳"):
+            fill_row(sheet2, row, r2, 12)
+            r2 += 1
+        elif (payment_method == "黑貓宅急便貨到付款"):
+            fill_row(sheet3, row, r3, 11)
+            r3 += 1
+        elif (payment_method == "樂天超級點數"):
+            fill_row(sheet4, row, r4, 14)
+            r4 += 1
+        else:
+            continue
 
 
 # set column width
@@ -256,11 +459,16 @@ set_auto_column_widths(sheet2)
 set_auto_column_widths(sheet3)
 set_auto_column_widths(sheet4)
 set_auto_column_widths(sheet5)
+set_auto_column_widths(sheet1F)
+set_auto_column_widths(sheet2F)
+set_auto_column_widths(sheet3F)
+set_auto_column_widths(sheet4F)
+set_auto_column_widths(sheet5F)
 
 
 # save new workbook
 nwb1.save(filename = newfilename1)
-
+nwb2.save(filename = newfilename2)
 
 # prevent output window from closing
 # input()
