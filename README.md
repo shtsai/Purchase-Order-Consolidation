@@ -6,6 +6,7 @@ This repository contains small programs that parses contents of excel files and 
 
 There are one subdirectories:   
 * [rakuten](https://github.com/shtsai7/excel_format_converter/tree/master/rakuten): contains all the code and instructions for converting rakuten worksheets
+* [momo](https://github.com/shtsai7/excel_format_converter/tree/master/momo): contains all the code and instructions for converting momo worksheets
  
 Checkout the README files in each subdirectorie for further details.
 
