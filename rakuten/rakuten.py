@@ -3,6 +3,7 @@ from gui import *
 from number_parser import *
 from openpyxl.utils import *
 from openpyxl.styles import *
+from openpyxl.styles.borders import Border, Side
 
 def set_auto_column_widths(sheet):
     '''
@@ -253,12 +254,12 @@ def fill_row_F(newsheet, row, r, payment_method):
         - 14: 點數
     '''
     # check if the order ID of the current row matches the order ID of previous row
-#    if (row[1].value[15:] == newsheet.cell(row=r-1, column=5).value):
-#        quantity = eval(row[9].value) 
-#        fill_quantity_F(newsheet, r-1, row[8].value, quantity)
-#        return r
-    
-    # Else, create a new row
+    # if they don't match, add a border to separate them
+    if (row[1].value[15:] != newsheet.cell(row=r-1, column=5).value):
+        border = Border(top=Side(style="thick", color="1E90FF"))  #<--change border color here
+        for i in range(1, 30):
+            newsheet.cell(row=r, column=i).border = border
+            
     # 1. date
     # 2. order date 
     newsheet.cell(row=r, column=2).value = (row[0].value[:11])
