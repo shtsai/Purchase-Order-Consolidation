@@ -253,10 +253,10 @@ def fill_row_F(newsheet, row, r, payment_method):
         - 14: 點數
     '''
     # check if the order ID of the current row matches the order ID of previous row
-    if (row[1].value[15:] == newsheet.cell(row=r-1, column=5).value):
-        quantity = eval(row[9].value) 
-        fill_quantity_F(newsheet, r-1, row[8].value, quantity)
-        return r
+#    if (row[1].value[15:] == newsheet.cell(row=r-1, column=5).value):
+#        quantity = eval(row[9].value) 
+#        fill_quantity_F(newsheet, r-1, row[8].value, quantity)
+#        return r
     
     # Else, create a new row
     # 1. date
