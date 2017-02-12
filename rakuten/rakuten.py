@@ -39,7 +39,7 @@ def set_auto_column_widths_F(sheet):
 
     sheet.column_dimensions[get_column_letter(7)].width = 13
     sheet.column_dimensions[get_column_letter(8)].width = 13
-    sheet.column_dimensions[get_column_letter(9)].width = 40
+    sheet.column_dimensions[get_column_letter(9)].width = 20
     sheet.column_dimensions[get_column_letter(10)].width = 40
 
 #   set row height
@@ -151,6 +151,13 @@ def fill_row(newsheet, row, r, payment_method):
         - 12: 轉帳
         - 11: 貨到付款
     '''
+    # check if the order ID of the current row matches the order ID of previous row
+    # if they don't match, add a border to separate them
+    if (row[1].value[15:] != newsheet.cell(row=r-1, column=5).value):
+        border = Border(top=Side(style="thick", color="1E90FF"))  #<--change border color here
+        for i in range(1, 50):
+            newsheet.cell(row=r, column=i).border = border
+
     # 1. date
     # 2. order date 
     newsheet.cell(row=r, column=2).value = (row[0].value[:11])
