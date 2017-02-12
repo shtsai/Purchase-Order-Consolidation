@@ -39,7 +39,7 @@ def set_auto_column_widths_F(sheet):
     sheet.column_dimensions[get_column_letter(7)].width = 13
     sheet.column_dimensions[get_column_letter(8)].width = 13
     sheet.column_dimensions[get_column_letter(9)].width = 40
-    sheet.column_dimensions[get_column_letter(11)].width = 40
+    sheet.column_dimensions[get_column_letter(10)].width = 40
 
 #   set row height
 #    for col in range(5, sheet.max_row-1):
@@ -120,8 +120,8 @@ def add_header_F(newsheet):
     newsheet.cell(row=3, column=7).value = "訂購人"
     newsheet.cell(row=3, column=8).value = "收貨人"
     newsheet.cell(row=3, column=9).value = "商品名稱"
-    newsheet.cell(row=3, column=10).value = ""
-    newsheet.cell(row=3, column=11).value = "無法識別品項"
+    newsheet.cell(row=3, column=10).value = "無法識別品項"
+    newsheet.cell(row=3, column=11).value = "組數"
     newsheet.cell(row=3, column=12).value = "贈送"
     newsheet.cell(row=3, column=13).value = ""
     newsheet.cell(row=3, column=14).value = "備貨"
@@ -132,12 +132,14 @@ def add_header_F(newsheet):
     newsheet.cell(row=3, column=19).value = "送貨地址"
     newsheet.cell(row=3, column=20).value = "訂單金額"
     newsheet.cell(row=3, column=21).value = "網路金額抵扣"
-    newsheet.cell(row=3, column=22).value = "Coupon"
-    newsheet.cell(row=3, column=23).value = "合計"
-    newsheet.cell(row=3, column=24).value = "買家付款方式"
-    newsheet.cell(row=3, column=25).value = "網購收款狀態"
-    newsheet.cell(row=3, column=26).value = "品號"
-
+    newsheet.cell(row=3, column=22).value = "Shop Coupon"
+    newsheet.cell(row=3, column=23).value = "Rakuten Coupon"
+    newsheet.cell(row=3, column=24).value = "合計"
+    newsheet.cell(row=3, column=25).value = "買家付款方式"
+    newsheet.cell(row=3, column=26).value = "網購收款狀態"
+    newsheet.cell(row=3, column=27).value = "品號"
+    newsheet.cell(row=3, column=28).value = "發票"
+    newsheet.cell(row=3, column=29).value = "備注"
 
 def fill_row(newsheet, row, r, payment_method):
     '''
@@ -274,9 +276,12 @@ def fill_row_F(newsheet, row, r, payment_method):
     newsheet.cell(row=r, column=8).value = (row[61].value)
     # 9. Product name
     newsheet.cell(row=r, column=9).value = ""
-    newsheet.cell(row=r, column=11).value = ""
+    newsheet.cell(row=r, column=10).value = ""
     quantity = eval(row[9].value)
     fill_quantity_F(newsheet, r, row[8].value, quantity)
+    # 10. unrecognizable product
+    # 11. quantity
+    newsheet.cell(row=r, column=11).value = (row[9].value)
     # 12. gift 1
     # 13. gift 2
     # 14. preparation
@@ -293,15 +298,22 @@ def fill_row_F(newsheet, row, r, payment_method):
     newsheet.cell(row=r, column=20).value = (row[14].value)
     # 21. point spent
     newsheet.cell(row=r, column=21).value = (row[20].value)
-    # 22. coupon
+    # 22. Shop Coupon
     newsheet.cell(row=r, column=22).value = (row[15].value)
-    # 23. amount paid 
-    newsheet.cell(row=r, column=23).value = (row[27].value)
-    # 24. payment method
-    newsheet.cell(row=r, column=24).value = str(payment_method) 
-    # 25. payment status
-    newsheet.cell(row=r, column=25).value = (row[29].value)
-    # 26. code
+    # 23. Rakuten Coupon
+    newsheet.cell(row=r, column=23).value = (row[16].value)
+    # 24. amount paid 
+    newsheet.cell(row=r, column=24).value = (row[27].value)
+    # 25. payment method
+    newsheet.cell(row=r, column=25).value = str(payment_method) 
+    # 26. payment status
+    newsheet.cell(row=r, column=26).value = (row[29].value)
+    # 27. code
+    # 28. receipt
+    if (row[59].value):
+        newsheet.cell(row=r, column=28).value = (row[59].value[10:])
+    # 29. note
+    newsheet.cell(row=r, column=29).value = (row[60].value)
 
     # move on to next row
     return r+1  
@@ -576,8 +588,8 @@ def fill_quantity_F(newsheet, r, product, quantity):
         newsheet.cell(row=r, column=9).value += "菜圃麻糬燒" + "*" + str(quantity)
     else:
         # couldn't match the product name, mark this row red
-        newsheet.cell(row=r, column=11).value += product
-        fill_color(newsheet, r, 27, "FF0000")
+        newsheet.cell(row=r, column=10).value += product
+        fill_color(newsheet, r, 30, "FF0000")
 
 def fill_color(sheet, row, column, color):
     fillcolor = PatternFill(start_color=color, end_color=color, fill_type='solid')
