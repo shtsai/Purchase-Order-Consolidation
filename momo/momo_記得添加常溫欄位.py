@@ -1,6 +1,5 @@
 import openpyxl
 from gui import *
-# from number_parser import *
 from openpyxl.utils import *
 from openpyxl.styles import *
 from openpyxl.styles.borders import Border, Side
