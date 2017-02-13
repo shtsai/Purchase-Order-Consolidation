@@ -115,7 +115,7 @@ def fill_row(newsheet, row, r, payment_method):
     # 23. reserved
     # 24. reserved
     # 25. payment method
-    newsheet.cell(row=r, column=25).value = str(row[19].value) 
+    newsheet.cell(row=r, column=25).value = payment_method
     # 26. payment status
     newsheet.cell(row=r, column=26).value = "已付款"
     # 27. code
@@ -199,19 +199,19 @@ for r in range(1, sheet.nrows):
     if ("常溫" not in row[25].value):   # 冷凍
         payment_method = row[19].value
         if (payment_method == "信用卡"):
-            r1F = fill_row(sheet1F, row, r1F, "信用卡")
+            r1F = fill_row(sheet1F, row, r1F, "13")
         elif (payment_method == "ATM"):
-            r2F = fill_row(sheet2F, row, r2F, "ATM")
+            r2F = fill_row(sheet2F, row, r2F, "12")
         else:
             continue
 
     else:                               # 常溫
         payment_method = row[19].value 
         if (payment_method == "信用卡"):
-            fill_row(sheet1, row, r1, "信用卡")
+            fill_row(sheet1, row, r1, "13")
             r1 += 1
         elif (payment_method == "ATM"):
-            fill_row(sheet2, row, r2, "ATM")
+            fill_row(sheet2, row, r2, "12")
             r2 += 1
         else:
             continue
