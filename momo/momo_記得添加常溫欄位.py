@@ -49,9 +49,12 @@ def add_header(newsheet):
     newsheet.cell(row=3, column=19).value = "送貨地址"
     newsheet.cell(row=3, column=20).value = "訂單金額"
     newsheet.cell(row=3, column=21).value = "合計"
-    newsheet.cell(row=3, column=22).value = "買家付款方式"
-    newsheet.cell(row=3, column=23).value = "網購收款狀態"
-    newsheet.cell(row=3, column=24).value = "品號"
+    newsheet.cell(row=3, column=22).value = ""
+    newsheet.cell(row=3, column=23).value = ""
+    newsheet.cell(row=3, column=24).value = ""
+    newsheet.cell(row=3, column=25).value = "買家付款方式"
+    newsheet.cell(row=3, column=26).value = "網購收款狀態"
+    newsheet.cell(row=3, column=27).value = "品號"
 
 
 def fill_row(newsheet, row, r, payment_method):
@@ -82,7 +85,7 @@ def fill_row(newsheet, row, r, payment_method):
     # 5. order ID 
     newsheet.cell(row=r, column=5).value = str(row[1].value[:14])
     # 6. order date 
-    newsheet.cell(row=r, column=6).value = str(row[1].value[:10])
+    newsheet.cell(row=r, column=6).value = str(row[7].value[:10])
     # 7. customer name
     newsheet.cell(row=r, column=7).value = str(row[9].value)
     # 8. receiptant name
@@ -107,13 +110,15 @@ def fill_row(newsheet, row, r, payment_method):
     newsheet.cell(row=r, column=19).value = str(row[12].value)
     # 20. order amount
     newsheet.cell(row=r, column=20).value = str(row[18].value)
-    # 21. total amount
-#    newsheet.cell(row=r, column=21).value = str(row[18].value)
-    # 22. payment method
-    newsheet.cell(row=r, column=22).value = str(row[19].value) 
-    # 23. payment status
-    newsheet.cell(row=r, column=23).value = "已付款"
-    # 24. code
+    # 21. total
+    # 22. reserved
+    # 23. reserved
+    # 24. reserved
+    # 25. payment method
+    newsheet.cell(row=r, column=25).value = str(row[19].value) 
+    # 26. payment status
+    newsheet.cell(row=r, column=26).value = "已付款"
+    # 27. code
 
     # move on to next row
     return r+1  
