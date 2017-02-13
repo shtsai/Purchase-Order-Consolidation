@@ -1,6 +1,5 @@
 import openpyxl
 from gui import *
-from number_parser import *
 from openpyxl.utils import *
 from openpyxl.styles import *
 from openpyxl.styles.borders import Border, Side
@@ -37,7 +36,7 @@ def add_header(newsheet):
     newsheet.cell(row=3, column=7).value = "訂購人"
     newsheet.cell(row=3, column=8).value = "收貨人"
     newsheet.cell(row=3, column=9).value = "商品名稱"
-    newsheet.cell(row=3, column=10).value = "無法識別品項"
+    newsheet.cell(row=3, column=10).value = "規格"
     newsheet.cell(row=3, column=11).value = "組數"
     newsheet.cell(row=3, column=12).value = "贈送"
     newsheet.cell(row=3, column=13).value = ""
@@ -55,6 +54,7 @@ def add_header(newsheet):
     newsheet.cell(row=3, column=25).value = "買家付款方式"
     newsheet.cell(row=3, column=26).value = "網購收款狀態"
     newsheet.cell(row=3, column=27).value = "品號"
+    newsheet.cell(row=3, column=28).value = "備注"
 
 def fill_row(newsheet, row, r, payment_method):
     '''
@@ -66,68 +66,59 @@ def fill_row(newsheet, row, r, payment_method):
     '''
     # check if the order ID of the current row matches the order ID of previous row
     # if they don't match, add a border to separate them
-    '''
-    if (row[1].value[15:] != newsheet.cell(row=r-1, column=5).value):
+    if (row[0].value != sheet.cell(row=row[0].row-1, column=1).value):
         border = Border(top=Side(style="thick", color="1E90FF"))  #<--change border color here
         for i in range(1, 30):
             newsheet.cell(row=r, column=i).border = border
-    '''
+
 
     # 1. date
     # 2. order date 
-    newsheet.cell(row=r, column=2).value = (row[0].value[:11])
+    newsheet.cell(row=r, column=2).value = str(row[7].value[:10])
     # 3. ID number
-    newsheet.cell(row=r, column=3).value = (row[55].value)
+    newsheet.cell(row=r, column=3).value = str(row[24].value)
     # 4. tracking ID 
     
     # 5. order ID 
-    newsheet.cell(row=r, column=5).value = (row[1].value[15:])
+    newsheet.cell(row=r, column=5).value = str(row[3].value[2:])
     # 6. order date 
-    newsheet.cell(row=r, column=6).value = "20" + (row[1].value[8:14])
+    newsheet.cell(row=r, column=6).value = str(row[7].value[:10])
     # 7. customer name
-    newsheet.cell(row=r, column=7).value = (row[53].value)
+    newsheet.cell(row=r, column=7).value = str(row[2].value)
     # 8. receiptant name
-    newsheet.cell(row=r, column=8).value = (row[61].value)
+    newsheet.cell(row=r, column=8).value = str(row[4].value)
     # 9. Product name
-    newsheet.cell(row=r, column=9).value = ""
-    newsheet.cell(row=r, column=10).value = ""
-    quantity = eval(row[9].value)
-    fill_quantity_F(newsheet, r, row[8].value, quantity)
-    # 10. unrecognizable product
+    newsheet.cell(row=r, column=9).value = str(row[15].value).replace("【海鮮主義】","")
+    # 10. specification
+    newsheet.cell(row=r, column=10).value = str(row[17].value)
     # 11. quantity
-    newsheet.cell(row=r, column=11).value = (row[9].value)
+    newsheet.cell(row=r, column=11).value = str(row[18].value)
     # 12. gift 1
     # 13. gift 2
     # 14. preparation
     # 15. ship date
-    newsheet.cell(row=r, column=15).value = (row[40].value)
+    newsheet.cell(row=r, column=15).value = str(row[8].value[:10])
     # 16. Note
     # 17. phone number 
-    newsheet.cell(row=r, column=17).value = (row[55].value)
+    newsheet.cell(row=r, column=17).value = str(row[24].value)
     # 18. contact phone number 
-    newsheet.cell(row=r, column=18).value = (row[62].value)
+    newsheet.cell(row=r, column=18).value = str(row[22].value)
     # 19. shipping address
-    newsheet.cell(row=r, column=19).value = (row[64].value)
-    # 20. order total
-    newsheet.cell(row=r, column=20).value = (row[14].value)
+    newsheet.cell(row=r, column=19).value = str(row[6].value)
+    # 20. ammount
+    newsheet.cell(row=r, column=20).value = str(eval(row[19].value)+row[28].value)
     # 21. point spent
-    newsheet.cell(row=r, column=21).value = (row[20].value)
-    # 22. Shop Coupon
-    newsheet.cell(row=r, column=22).value = (row[15].value)
-    # 23. Rakuten Coupon
-    newsheet.cell(row=r, column=23).value = (row[16].value)
-    # 24. amount paid 
-    newsheet.cell(row=r, column=24).value = (row[27].value)
+    newsheet.cell(row=r, column=21).value = str(row[28].value)
+    # 22. total
+    newsheet.cell(row=r, column=22).value = str(row[19].value)
+    # 23. reserved
+    # 24. reserved
     # 25. payment method
     newsheet.cell(row=r, column=25).value = str(payment_method) 
     # 26. payment status
-    newsheet.cell(row=r, column=26).value = (row[29].value)
     # 27. code
-    # 28. receipt
-    if (row[59].value):
-        newsheet.cell(row=r, column=28).value = (row[59].value[10:])
-    # 29. note
-    newsheet.cell(row=r, column=29).value = (row[60].value)
+    # 28. note
+    newsheet.cell(row=r, column=28).value = str(row[16].value)
 
     # move on to next row
     return r+1  
@@ -148,7 +139,7 @@ if (filename == -1):
 wb = openpyxl.load_workbook(filename)
 
 # open work sheet, by default the first sheet
-sheet = wb.get_sheet_by_name(wb.get_sheet_name()[0])
+sheet = wb.get_sheet_by_name(wb.get_sheet_names()[0])
 
 # open write files
 nwb1 = openpyxl.Workbook()
@@ -179,9 +170,9 @@ for row in sheet.iter_rows():
 
     payment_method = sheet.cell(row=row[0].row, column=2).value
     if ("信用卡" in payment_method):
-        r1F = fill_row_F(sheet1, row, r1, 13)
+        r1 = fill_row(sheet1, row, r1, 13)
     elif ("ATM" in payment_method):
-        r2F = fill_row_F(sheet2, row, r2, 12)
+        r2 = fill_row(sheet2, row, r2, 12)
     else:
         continue
 
