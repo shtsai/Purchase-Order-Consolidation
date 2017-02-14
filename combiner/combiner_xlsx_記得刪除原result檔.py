@@ -34,13 +34,10 @@ def set_auto_column_widths(sheet):
 
 def fill_row(newsheet, row, r):
     for i in range(len(row)):
-        newsheet.cell(row=r, column=i+1).value = row[i].value
-
-
-def fill_color(sheet, row, column, color):
-    fillcolor = PatternFill(start_color=color, end_color=color, fill_type='solid')
-    for i in range(1, column):
-        sheet.cell(row=row, column=i).fill = fillcolor
+        if (type(row[i].value) == float):
+            newsheet.cell(row=r, column=i+1).value = str(int(row[i].value))
+        else:
+            newsheet.cell(row=r, column=i+1).value = str(row[i].value)
 
 
 # path name
@@ -63,7 +60,7 @@ for i in range(len(filename)):
  
     # process original sheet row by row
     for row in sheet.iter_rows():
-        if (i == 0):
+        if (i == 0 and row[0].row == 1):
             fill_row(sheet1, row, 1)
         if row[0].row == 1:  # skip the first line
             continue
