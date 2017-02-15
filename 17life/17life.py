@@ -79,7 +79,7 @@ def fill_row(newsheet, row, r, payment_method):
     # 4. tracking ID 
     
     # 5. order ID 
-    newsheet.cell(row=r, column=5).value = str(row[1].value).replace("-","")
+    newsheet.cell(row=r, column=5).value = str(row[1].value[:16]).replace("-","")
     # 6. order date 
     newsheet.cell(row=r, column=6).value = str(row[2].value[:10])
     # 7. customer name
