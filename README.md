@@ -7,8 +7,8 @@ This repository contains small programs that transforms order information across
 There are two subdirectories:   
 * [rakuten](https://github.com/shtsai7/excel_format_converter/tree/master/rakuten): contains all the code and instructions for converting rakuten worksheets
 * [momo](https://github.com/shtsai7/excel_format_converter/tree/master/momo): contains all the code and instructions for converting momo worksheets
-* [yahoo](https://github.com/shtsai7/excel_format_converter/tree/master/yahoo): contains all the code and instructions for converting momo worksheets
-* [17life](https://github.com/shtsai7/excel_format_converter/tree/master/17life): contains all the code and instructions for converting momo worksheets
+* [yahoo](https://github.com/shtsai7/excel_format_converter/tree/master/yahoo): contains all the code and instructions for converting yahoo worksheets
+* [17life](https://github.com/shtsai7/excel_format_converter/tree/master/17life): contains all the code and instructions for converting 17life worksheets
 * [combiner](https://github.com/shtsai7/excel_format_converter/tree/master/combiner): contains all the code and instructions for combining multiple workbooks
 
 ## Requirements
